@@ -23,11 +23,24 @@ import { OBJ, OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 const objloder = new OBJLoader();
 const textureLoader = new THREE.TextureLoader();
 
+const cubeTextureLoader = new THREE.CubeTextureLoader();
+
+const environmentMapTexture = cubeTextureLoader.load([
+  "/textures/environmentMaps/0/px.jpg",
+  "/textures/environmentMaps/0/nx.jpg",
+  "/textures/environmentMaps/0/py.jpg",
+  "/textures/environmentMaps/0/ny.jpg",
+  "/textures/environmentMaps/0/pz.jpg",
+  "/textures/environmentMaps/0/nz.jpg",
+]);
+
 //Loading model and apply glass material
 const glassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.1,
   transmission: 1,
-  thickness: 1.5,
+  thickness: 1,
+  envMap: environmentMapTexture,
+  envMapIntensity: 3,
 });
 
 objloder.load("models/glass/glass_1.obj", (obj) => {
